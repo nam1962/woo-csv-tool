@@ -1,14 +1,16 @@
 require 'csv'
 
 # Open the CSV file
-CSV.open('your_csv_file.csv', 'r', headers: true) do |csv|
+CSV.open('wc-product-export-22-8-2023.csv', 'r', headers: true) do |csv|
   rows = csv.read
 
   # Iterate through each row and remove question marks from the description
   rows.each do |row|
     description = row['Description courte']
-    clean_description = description.gsub('?', '') # Remove question marks
-    row['Description courte'] = clean_description
+    if description
+      clean_description = description.gsub('?', '') # Remove question marks
+      row['Description courte'] = clean_description
+    end
   end
 
   # Write the modified data back to the CSV file
